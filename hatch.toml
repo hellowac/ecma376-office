@@ -1,0 +1,15 @@
+[envs.hatch-static-analysis]
+config-path = "ruff_defaults.toml"
+
+[envs.default]
+installer = "uv"
+python = "3.11"
+
+
+[envs.dev]
+installer = "uv"
+python = "3.11"
+dependencies = [
+  "lxml>=5.0.0",
+  "numpy>=2.0.0"
+]

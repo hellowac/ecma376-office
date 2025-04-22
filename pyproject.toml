@@ -1,0 +1,78 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ecma376_office"
+dynamic = ["version"]
+description = '支持按ECMA376标准解析office系列文档(.docx, .pptx)的软件包，暂不支持 .xlsx 文件格式'
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+keywords = ["ecma376", "office", 'docx', 'pptx']
+authors = [
+  { name = "hellowac", email = "hellowxchao@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "lxml>=5.0.0",
+  "numpy>=2.0.0"
+]
+
+[project.urls]
+Documentation = "https://github.com/hellowac/ecma376-office#readme"
+Issues = "https://github.com/hellowac/ecma376-office/issues"
+Source = "https://github.com/hellowac/ecma376-office"
+
+[tool.hatch.version]
+path = "src/ecma376_office/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/ecma376_office tests}"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/scripts",
+]
+
+[tool.mypy]
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+enable_error_code = ["ignore-without-code", "truthy-bool"]
+follow_imports = "normal"
+ignore_missing_imports = true
+pretty = true
+show_column_numbers = true
+warn_no_return = false
+warn_unused_ignores = true
+
+[tool.coverage.run]
+source_pkgs = ["ecma376_office", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/ecma376_office/__about__.py",
+]
+
+[tool.coverage.paths]
+ecma376_office = ["src/ecma376_office", "*/-/src/ecma376_office"]
+tests = ["tests", "*/-/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
